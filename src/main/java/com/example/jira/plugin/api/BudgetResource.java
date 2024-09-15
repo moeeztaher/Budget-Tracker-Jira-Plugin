@@ -38,7 +38,7 @@ public class BudgetResource {
         }
         Budget createdBudget = budgetService.createBudget(budget);
 
-        // Check thresholds and send alerts if necessary
+        // check thresholds and send alerts
         String projectKey = createdBudget.getProjectKey();
         double totalBudget = budgetService.getTotalBudget(projectKey);
         double totalExpenses = budgetService.getTotalExpenses(projectKey);
@@ -63,7 +63,7 @@ public class BudgetResource {
     public Response updateBudget(@PathParam("id") String id, String budgetJson) {
         try {
             Budget updatedBudget = gson.fromJson(budgetJson, Budget.class);
-            updatedBudget.setId(id);  // Ensure the ID from the path is set
+            updatedBudget.setId(id);
             Budget result = budgetService.updateBudget(updatedBudget);
             if (result != null) {
                 return Response.ok(gson.toJson(result)).build();
