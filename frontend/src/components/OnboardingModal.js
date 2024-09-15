@@ -67,9 +67,6 @@ function OnboardingModal({ open, onClose, onStartBudgetSetup }) {
         >
           Start Setup
         </Button>
-        <Button variant="outlined" className={classes.button} onClick={onClose}>
-          Maybe Later
-        </Button>
       </DialogActions>
     </Dialog>
   );
