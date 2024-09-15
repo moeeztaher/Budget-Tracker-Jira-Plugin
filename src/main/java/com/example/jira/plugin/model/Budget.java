@@ -34,7 +34,6 @@ public class Budget {
         this.amount = amount;
     }
 
-    // Getters and setters
     public String getId() {
         return id;
     }
@@ -118,14 +117,12 @@ public class Budget {
         this.date = date;
     }
 
-
-    // Inner class to represent an Issue
+    // inner class for issue
     public static class Issue {
         private String key;
         private String summary;
         private String type;
 
-        // Getters and setters
         public String getKey() {
             return key;
         }
