@@ -41,11 +41,11 @@ function App() {
           if (!selectedProjectKey && projectsData.length > 0) {
             setSelectedProjectKey(projectsData[0].key);
             setSelectedProject(projectsData[0]); // Set the selected project
-            localStorage.setItem('selectedProjectKey', projectsData[0].key); // Persist project key in localStorage
-            setProjectSelectionOpen(false); // Close project selection modal
+            localStorage.setItem('selectedProjectKey', projectsData[0].key);
+            setProjectSelectionOpen(false);
           } else {
             const currentProject = projectsData.find(proj => proj.key === selectedProjectKey);
-            setSelectedProject(currentProject); // Set the currently selected project
+            setSelectedProject(currentProject);
           }
         } else {
           console.error('Failed to fetch projects');
@@ -67,7 +67,7 @@ function App() {
           const data = await response.json();
           setBudgetData(data);
 
-          // If no budget exists, show onboarding modal
+          // if no budget exists show onboarding modal
           if (data.totalBudget === 0) {
             setOnboardingOpen(true);
           } else {
@@ -86,7 +86,7 @@ function App() {
     }
   }, [selectedProjectKey]);
 
-  // Handler when project is selected from the project selection modal
+  // handler when project is selected from the project selection modal
   const handleProjectSelect = (projectKey) => {
     setSelectedProjectKey(projectKey);
     const newProject = projects.find(proj => proj.key === projectKey);
@@ -95,13 +95,13 @@ function App() {
     setProjectSelectionOpen(false); // Close the project selection modal
   };
 
-  // Handler to start budget setup from onboarding modal
+  // handler to start budget setup from onboarding modal
   const handleStartBudgetSetup = () => {
     setOnboardingOpen(false);
     window.history.pushState(null, '', '/jira/secure/BudgetTrackerForm.jspa'); // Change the URL to trigger BudgetTracker
   };
 
-  // Open project selection modal manually from ProjectSummaryCard
+  // open project selection modal manually
   const openProjectSelection = () => {
     setProjectSelectionOpen(true);
   };
@@ -109,15 +109,13 @@ function App() {
   return (
     <div className={`App ${onboardingOpen ? 'blur-background' : ''}`}>
       <div className="content-wrapper">
-        {/* Conditionally render ProjectSummaryCard and its contents */}
+        {/* projectsummarycard shouldnt show up on issue viewer and swagger page */}
         {!isIssuePage && !isSwaggerPage && (
           <>
             <ProjectSummaryCard
               selectedProject={selectedProject}
               onProjectChange={openProjectSelection}
             />
-
-            {/* Project Selection Modal */}
             <ProjectSelectionModal
               open={projectSelectionOpen}
               projects={projects}
@@ -125,20 +123,16 @@ function App() {
             />
           </>
         )}
-
-        {/* Onboarding Modal */}
         <OnboardingModal
           open={onboardingOpen}
           onClose={() => setOnboardingOpen(false)}
           onStartBudgetSetup={handleStartBudgetSetup}
         />
-
-        {/* App Pages */}
         {isBudgetTracker ? (
           <BudgetTracker
             projectKey={selectedProjectKey}
-            onboardingOpen={onboardingOpen}  // Pass onboardingOpen state
-            setOnboardingOpen={setOnboardingOpen}  // Pass setOnboardingOpen function
+            onboardingOpen={onboardingOpen}
+            setOnboardingOpen={setOnboardingOpen}
           />
         ) : isBudgetOverview ? (
           <BudgetOverview projectKey={selectedProjectKey} />
