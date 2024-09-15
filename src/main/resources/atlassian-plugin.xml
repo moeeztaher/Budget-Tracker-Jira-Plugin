@@ -1,0 +1,88 @@
+<atlassian-plugin key="${atlassian.plugin.key}" name="${project.name}" plugins-version="2">
+    <plugin-info>
+        <description>${project.description}</description>
+        <version>${project.version}</version>
+        <vendor name="${project.organization.name}" url="${project.organization.url}" />
+        <param name="plugin-icon">images/pluginIcon.png</param>
+        <param name="plugin-logo">images/pluginLogo.png</param>
+    </plugin-info>
+
+    <!-- add our i18n resource -->
+    <resource type="i18n" name="i18n" location="my-jira-plugin"/>
+    
+    <!-- add our web resources -->
+    <web-item key="budget-tracker-link" section="system.top.navigation.bar" weight="1000">
+        <label key="Budget Tracker"/>
+        <link linkId="budget-tracker-link">/secure/BudgetTrackerDashboard.jspa</link>
+    </web-item>
+
+    <web-resource key="react-app-resources" name="React App Resources">
+        <resource type="download" name="bundle.js" location="js/bundle.js"/>
+        <context>jira.general</context>
+    </web-resource>
+
+    <webwork1 key="budget-tracker-actions" class="com.example.jira.plugin.BudgetTrackerAction">
+        <actions>
+            <action name="com.example.jira.plugin.BudgetTrackerAction" alias="BudgetTrackerDashboard">
+                <view name="success">/templates/budget-tracker-dashboard.vm</view>
+            </action>
+            <action name="com.example.jira.plugin.BudgetTrackerAction" alias="BudgetTrackerForm">
+                <view name="success">/templates/budget-tracker-form.vm</view>
+            </action>
+            <action name="com.example.jira.plugin.BudgetTrackerAction" alias="BudgetTrackerOverview">
+                <view name="success">/templates/budget-tracker-overview.vm</view>
+            </action>
+            <action name="com.example.jira.plugin.BudgetTrackerAction" alias="BudgetThresholdPage">
+                <view name="success">/templates/budget-threshold-page.vm</view>
+            </action>
+            <action name="com.example.jira.plugin.BudgetTrackerAction" alias="SwaggerDocs">
+                <view name="success">/templates/swagger-docs.vm</view>
+            </action>
+        </actions>
+    </webwork1>
+
+    <!-- Add this new resource -->
+    <web-resource key="budget-tracker-templates" name="Budget Tracker Templates">
+        <resource type="velocity" name="layout" location="templates/budget-tracker-layout.vm"/>
+    </web-resource>
+
+    <rest name="Simple Rest Resource" i18n-name-key="simple-rest-resource.name" key="simple-rest-resource" path="/simple" version="1.0">
+        <description key="simple-rest-resource.description">A simple REST resource</description>
+        <package>com.example.jira.plugin.api</package>
+    </rest>
+
+
+    <!-- Declare the REST module -->
+    <rest name="Budget Rest Resource" i18n-name-key="budget-rest-resource.name" key="budget-rest-resource" path="/budget" version="1.0">
+        <description key="budget-rest-resource.description">The Budget REST Resource</description>
+        <package>com.example.jira.plugin.api</package>
+    </rest>
+
+
+    <web-panel key="project-creation-budget-panel" location="jira.project.create.before.key"
+               weight="10">
+        <resource name="view" type="velocity" location="/templates/project-budget.vm"/>
+    </web-panel>
+
+    <web-panel key="Linked Expenses" location="atl.jira.view.issue.right.context" weight="200">
+        <resource type="velocity" name="view" location="templates/linked-expenses.vm"/>
+    </web-panel>
+
+    <web-resource key="linked-expenses-resources" name="Linked Expenses Resources">
+        <resource type="download" name="linked-expenses.js" location="js/linked-expenses.js"/>
+        <context>jira.view.issue</context>
+    </web-resource>
+
+    <rest name="Jira Issue Resource" i18n-name-key="jira-issue-resource.name" key="jira-issue-resource" path="/jira-issue" version="1.0">
+        <description key="jira-issue-resource.description">Provides REST endpoints for Jira issue-related operations</description>
+        <package>com.example.jira.plugin.api</package>
+    </rest>
+
+    <rest name="Alert Threshold Resource" i18n-name-key="alert-threshold-resource.name" key="alert-threshold-resource" path="/alert-thresholds" version="1.0">
+        <description>Provides REST endpoints for managing alert thresholds</description>
+        <package>com.example.jira.plugin.api</package>
+    </rest>
+
+
+
+</atlassian-plugin>
