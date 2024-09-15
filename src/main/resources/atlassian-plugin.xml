@@ -7,10 +7,8 @@
         <param name="plugin-logo">images/pluginLogo.png</param>
     </plugin-info>
 
-    <!-- add our i18n resource -->
     <resource type="i18n" name="i18n" location="my-jira-plugin"/>
-    
-    <!-- add our web resources -->
+
     <web-item key="budget-tracker-link" section="system.top.navigation.bar" weight="1000">
         <label key="Budget Tracker"/>
         <link linkId="budget-tracker-link">/secure/BudgetTrackerDashboard.jspa</link>
@@ -41,7 +39,6 @@
         </actions>
     </webwork1>
 
-    <!-- Add this new resource -->
     <web-resource key="budget-tracker-templates" name="Budget Tracker Templates">
         <resource type="velocity" name="layout" location="templates/budget-tracker-layout.vm"/>
     </web-resource>
@@ -52,7 +49,6 @@
     </rest>
 
 
-    <!-- Declare the REST module -->
     <rest name="Budget Rest Resource" i18n-name-key="budget-rest-resource.name" key="budget-rest-resource" path="/budget" version="1.0">
         <description key="budget-rest-resource.description">The Budget REST Resource</description>
         <package>com.example.jira.plugin.api</package>
@@ -82,7 +78,5 @@
         <description>Provides REST endpoints for managing alert thresholds</description>
         <package>com.example.jira.plugin.api</package>
     </rest>
-
-
 
 </atlassian-plugin>
