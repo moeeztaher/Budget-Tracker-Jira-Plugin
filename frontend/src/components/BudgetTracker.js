@@ -38,7 +38,7 @@ const BudgetTracker = ({ projectKey, onboardingOpen, setOnboardingOpen }) => {
       if (data === null || data === 0) {
         console.log("Budget not set, showing modal");
         setShowSetBudgetModal(true);
-        setOnboardingOpen(true); // Trigger onboarding if budget is not set
+        setOnboardingOpen(true); // trigger the onboarding process if budget is not set
       } else {
         console.log("Budget set, updating remaining budget");
         setRemainingBudget(data);
@@ -47,7 +47,7 @@ const BudgetTracker = ({ projectKey, onboardingOpen, setOnboardingOpen }) => {
       console.error("Error checking total budget:", error);
       setError("Failed to fetch remaining budget");
       setShowSetBudgetModal(true);
-      setOnboardingOpen(true); // Trigger onboarding on error
+      setOnboardingOpen(true); // trigger onboarding even if error
     }
   };
 
@@ -70,7 +70,7 @@ const BudgetTracker = ({ projectKey, onboardingOpen, setOnboardingOpen }) => {
       console.log("Total budget set successfully");
       setRemainingBudget(parseFloat(newTotalBudget));
       setShowSetBudgetModal(false);
-      setOnboardingOpen(false); // Close onboarding after setting budget
+      setOnboardingOpen(false);
     } catch (error) {
       console.error("Error setting total budget:", error);
       setError("Failed to set total budget");
@@ -83,7 +83,7 @@ const BudgetTracker = ({ projectKey, onboardingOpen, setOnboardingOpen }) => {
       if (prevBudget !== null) {
         return prevBudget - budgetItem.amount;
       }
-      return prevBudget; // Return null if prevBudget is null
+      return prevBudget;
     });
   };
 
@@ -95,7 +95,7 @@ const BudgetTracker = ({ projectKey, onboardingOpen, setOnboardingOpen }) => {
     return <div>Loading...</div>;
   }
 
-  // Only show SetTotalBudgetModal if onboarding is not open
+  // stop set budget modal from overlapping onboarding modal
   return (
     <div>
       {showSetBudgetModal && !onboardingOpen ? (
