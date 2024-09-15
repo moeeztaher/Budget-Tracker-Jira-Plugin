@@ -35,7 +35,7 @@ public class BudgetServiceImpl implements BudgetService {
     public Budget createBudget(Budget budget) {
         budgets.add(budget);
         updateRemainingBudget(budget.getProjectKey(), budget.getAmount());
-        // Check thresholds and send alerts if necessary
+        // checking thresholds and send alerts
         double totalBudget = projectTotalBudgets.getOrDefault(budget.getProjectKey(), 0.0);
         double totalExpenses = budgets.stream()
                 .filter(b -> b.getProjectKey().equals(budget.getProjectKey()))
@@ -55,7 +55,7 @@ public class BudgetServiceImpl implements BudgetService {
         budgets.remove(budgetToRemove);
         updateRemainingBudget(budgetToRemove.getProjectKey(), -budgetToRemove.getAmount());
 
-        // Check thresholds and send alerts if necessary
+        // checking thresholds and send alerts
         double totalBudget = projectTotalBudgets.getOrDefault(budgetToRemove.getProjectKey(), 0.0);
         double totalExpenses = budgets.stream()
                 .filter(b -> b.getProjectKey().equals(budgetToRemove.getProjectKey()))
@@ -71,11 +71,10 @@ public class BudgetServiceImpl implements BudgetService {
                 Budget oldBudget = budgets.get(i);
                 budgets.set(i, updatedBudget);
 
-                // Update remaining budget
                 double budgetDifference = updatedBudget.getAmount() - oldBudget.getAmount();
                 updateRemainingBudget(updatedBudget.getProjectKey(), budgetDifference);
 
-                // Check thresholds and send alerts if necessary
+                // checking thresholds and send alerts
                 double totalBudget = projectTotalBudgets.getOrDefault(updatedBudget.getProjectKey(), 0.0);
                 double totalExpenses = budgets.stream()
                         .filter(b -> b.getProjectKey().equals(updatedBudget.getProjectKey()))
@@ -86,7 +85,7 @@ public class BudgetServiceImpl implements BudgetService {
                 return updatedBudget;
             }
         }
-        return null;  // Budget not found
+        return null;
     }
 
     @Override
@@ -138,7 +137,7 @@ public class BudgetServiceImpl implements BudgetService {
 
     @Override
     public List<Map<String, Object>> getExpensesByPhase(String projectKey) {
-        // Fetch all epics for the project
+        // fetching all epics for the project
         List<Issue> epics = getEpicsForProject(projectKey);
 
         Map<String, Double> epicExpenses = new HashMap<>();
@@ -146,15 +145,13 @@ public class BudgetServiceImpl implements BudgetService {
         for (Issue epic : epics) {
             double epicTotal = 0.0;
 
-            // Fetch all issues linked to this epic
+            // then fetching all issues linked to this epic
             List<Issue> epicIssues = getIssuesForEpic(epic.getKey());
 
-            // Create a set of all issue keys associated with this epic, including the epic itself
             Set<String> epicIssueKeys = new HashSet<>();
             epicIssueKeys.add(epic.getKey());
             epicIssueKeys.addAll(epicIssues.stream().map(Issue::getKey).collect(Collectors.toSet()));
 
-            // Sum expenses for the epic and all its associated issues
             epicTotal = budgets.stream()
                     .filter(b -> b.getProjectKey().equals(projectKey) &&
                             b.getSelectedIssues().stream()
@@ -190,11 +187,9 @@ public class BudgetServiceImpl implements BudgetService {
                 SearchResults<Issue> searchResult = searchService.search(user, parseResult.getQuery(), PagerFilter.getUnlimitedFilter());
                 return searchResult.getResults();
             } else {
-                // Handle invalid JQL query
                 return new ArrayList<>();
             }
         } catch (Exception e) {
-            // Handle any exceptions
             e.printStackTrace();
             return new ArrayList<>();
         }
@@ -215,11 +210,9 @@ public class BudgetServiceImpl implements BudgetService {
                 SearchResults<Issue> searchResult = searchService.search(user, parseResult.getQuery(), PagerFilter.getUnlimitedFilter());
                 return searchResult.getResults();
             } else {
-                // Handle invalid JQL query
                 return new ArrayList<>();
             }
         } catch (Exception e) {
-            // Handle any exceptions
             e.printStackTrace();
             return new ArrayList<>();
         }
@@ -250,13 +243,13 @@ public class BudgetServiceImpl implements BudgetService {
     public List<Budget> getExpensesForIssue(String issueKey) {
         System.out.println("getExpensesForIssue called for key: " + issueKey);
 
-        // Check if the issue is an epic
+        // checking if the issue is an epic
         boolean isEpic = isEpic(issueKey);
         Set<String> relatedIssueKeys = new HashSet<>();
         relatedIssueKeys.add(issueKey);
 
         if (isEpic) {
-            // If it's an epic, get all related issues
+            // if its an epic then get all related issues
             relatedIssueKeys.addAll(getIssuesForEpic(issueKey).stream().map(Issue::getKey).collect(Collectors.toSet()));
         }
 
