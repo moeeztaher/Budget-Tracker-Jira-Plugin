@@ -39,15 +39,13 @@ public class AlertThresholdServiceImpl implements AlertThresholdService {
     public void checkThresholdsAndAlert(String projectKey, double totalBudget, double currentExpenses) {
         double percentageSpent = (currentExpenses / totalBudget) * 100;
 
-        // Sort the thresholds in descending order (in case they were not sorted already)
+        // sort the thresholds in descending order (in case they were not sorted already)
         thresholds.sort(Collections.reverseOrder());
 
         for (int threshold : thresholds) {
-            // Only consider thresholds that are higher than the last one crossed
+
             if (percentageSpent >= threshold && threshold > highestThresholdCrossed) {
-                // Send an email alert
                 sendAlertToProjectManagers(projectKey, threshold, percentageSpent, totalBudget, currentExpenses);
-                // Update the highest threshold crossed
                 highestThresholdCrossed = threshold;
             }
         }
