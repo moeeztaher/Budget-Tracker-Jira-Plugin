@@ -27,7 +27,6 @@ function JiraIssueSearch({ selectedIssues, setSelectedIssues }) {
     }
   };
 
-  // Debounce the search function
   const debouncedSearch = useCallback(debounce(searchIssues, 300), []);
 
   return (
