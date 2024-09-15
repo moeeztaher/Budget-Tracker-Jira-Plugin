@@ -236,7 +236,7 @@ export default function BudgetDashboardPage({ projectKey }) {
       const data = await response.json();
       setExpenses(data);
 
-      // Process data for trends chart
+      // process data for trends chart
       const trendData = processExpenseTrends(data);
       setExpensesTrend(trendData);
     } catch (error) {
