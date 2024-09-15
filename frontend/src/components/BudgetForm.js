@@ -127,7 +127,7 @@ const BudgetForm = ({ onSubmit, projectKey, remainingBudget }) => {
     return Object.keys(tempErrors).length === 0;
   };
 
-  // Handles the changes and clears the specific error once corrected
+  // clear error field on change (if its not there anymore)
   const handleFieldChange = (field, value) => {
     let newErrors = { ...errors };
 
@@ -146,7 +146,6 @@ const BudgetForm = ({ onSubmit, projectKey, remainingBudget }) => {
 
     setErrors(newErrors);
 
-    // Update the specific field state
     if (field === "budgetName") setBudgetName(value);
     if (field === "budgetCategory") setBudgetCategory(value);
     if (field === "customCategory") setCustomCategory(value);
@@ -186,7 +185,7 @@ const BudgetForm = ({ onSubmit, projectKey, remainingBudget }) => {
           severity: "success",
           message: "Budget successfully created!",
         });
-        // Clear form after submission
+        // clearing form after submissio
         setBudgetName("");
         setBudgetCategory("");
         setCustomCategory("");
