@@ -17,7 +17,7 @@ Budget Tracker is a powerful Jira plugin designed to help teams effectively mana
 
 ## Installation
 
-1. Download the latest version of the Budget Tracker plugin JAR file from the [releases page]([link-to-your-releases-page](https://github.com/moeeztaher/Budget-Tracker-Jira-Plugin/releases/tag/1.0.0)).
+1. Download the latest version of the Budget Tracker plugin JAR file from the [releases page]([link-to-your-releases-page]).
 2. Log in to your Jira instance as an administrator.
 3. Navigate to Jira administration > Manage apps.
 4. Click on "Upload app" and select the downloaded JAR file.
