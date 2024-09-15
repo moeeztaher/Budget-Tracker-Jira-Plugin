@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
     boxShadow: "0 4px 20px rgba(0,0,0,0.1)",
     overflow: "hidden",
     transition: "all 0.3s ease",
-    width: "200px", // Fixed width for both collapsed and expanded states
+    width: "200px",
   },
   cardContent: {
     display: "flex",
@@ -59,7 +59,7 @@ const useStyles = makeStyles((theme) => ({
   },
   button: {
     marginTop: "10px",
-    width: "100%", // Make button full width
+    width: "100%",
   },
   expandIcon: {
     color: "white",
