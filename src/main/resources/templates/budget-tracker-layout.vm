@@ -1,0 +1,56 @@
+#macro(budgetTrackerLayout $title $selectedTab)
+<html>
+<head>
+    <meta name="decorator" content="atl.general">
+    <title>$title</title>
+    <style>
+        body, #content {
+            min-height: 100vh;
+        }
+        .page-content {
+            min-height: calc(100vh - 100px); /* Adjust based on your header/footer height */
+            display: flex;
+            flex-direction: column;
+        }
+    </style>
+</head>
+<body>
+    <div class="page-content">
+        <div class="aui-page-panel">
+            <div class="aui-page-panel-inner">
+                <div class="aui-page-panel-nav">
+                    <nav class="aui-navgroup aui-navgroup-vertical">
+                        <div class="aui-navgroup-inner">
+                            <ul class="aui-nav">
+                                <li #if($selectedTab == "form"|| $selectedTab == "")class="aui-nav-selected"#end>
+                                    <a href="$req.contextPath/secure/BudgetTrackerForm.jspa">
+                                        <span class="aui-icon aui-icon-small aui-iconfont-add">Create</span>
+                                        Create New Expense
+                                    </a>
+                                </li>
+                                <li #if($selectedTab == "dashboard")class="aui-nav-selected"#end>
+                                    <a href="$req.contextPath/secure/BudgetTrackerDashboard.jspa">
+                                        <span class="aui-icon aui-icon-small aui-iconfont-graph-line">Dashboard</span>
+                                        Budget Dashboard
+                                    </a>
+                                </li>
+                                <li #if($selectedTab == "threshold")class="aui-nav-selected"#end>
+                                    <a href="$req.contextPath/secure/BudgetThresholdPage.jspa">
+                                        <span class="aui-icon aui-icon-small aui-iconfont-notification-all">Alert Threshold</span>
+                                        Create Alert Threshold
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </nav>
+                </div>
+                <section class="aui-page-panel-content">
+                    <div id="react-app-root"></div>
+                </section>
+            </div>
+        </div>
+    </div>
+    $webResourceManager.requireResource("com.example.jira.plugin.react-app-resources")
+</body>
+</html>
+#end

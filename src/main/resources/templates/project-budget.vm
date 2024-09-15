@@ -1,0 +1,4 @@
+<div class="field-group">
+    <label for="total-budget">Total Budget</label>
+    <input type="text" id="total-budget" name="total-budget" placeholder="Enter project budget"/>
+</div>

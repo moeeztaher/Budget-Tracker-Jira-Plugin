@@ -1,0 +1,40 @@
+<div id="react-app-root"></div>
+<style>
+    /* Reset text alignment for Swagger UI */
+    #react-app-root {
+        text-align: left;
+    }
+
+    /* Adjust swagger-ui container */
+    .swagger-ui {
+        margin: 0 auto;
+        width: 100%;
+        max-width: 1460px;
+        padding: 0 20px;
+        box-sizing: border-box;
+    }
+
+    /* Align operation content to the left */
+    .swagger-ui .opblock-summary,
+    .swagger-ui .opblock-description-wrapper,
+    .swagger-ui table {
+        text-align: left;
+    }
+
+    /* Ensure buttons and inputs are not centered */
+    .swagger-ui button,
+    .swagger-ui input {
+        margin: 0;
+    }
+
+    /* Adjust header alignment */
+    .swagger-ui .info {
+        margin: 50px 0;
+    }
+
+    /* Ensure proper alignment for try-out sections */
+    .swagger-ui .try-out {
+        text-align: right;
+    }
+</style>
+$webResourceManager.requireResource("com.example.jira.plugin.react-app-resources")
