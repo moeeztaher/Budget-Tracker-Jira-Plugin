@@ -8,7 +8,6 @@ import com.atlassian.mail.server.SMTPMailServer;
 public class EmailService {
     public void sendEmail(String to, String subject, String body) {
         try {
-            // Log the details of the email
             System.out.println("Preparing to send email to: " + to);
             System.out.println("Subject: " + subject);
             System.out.println("Body: " + body);
@@ -17,7 +16,6 @@ public class EmailService {
             email.setSubject(subject);
             email.setBody(body);
 
-            // Get the default 'from' address
             SMTPMailServer mailServer = ComponentAccessor.getMailServerManager().getDefaultSMTPMailServer();
             if (mailServer == null) {
                 throw new RuntimeException("No default SMTP mail server configured.");
@@ -28,7 +26,7 @@ public class EmailService {
 
             System.out.println("From: " + fromAddress);
 
-            // Use Jira's mail queue to send the email
+            // jira mail queue, might switch to direct sending
             SingleMailQueueItem item = new SingleMailQueueItem(email);
             ComponentAccessor.getMailQueue().addItem(item);
 
